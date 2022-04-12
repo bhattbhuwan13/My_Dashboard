@@ -13,11 +13,7 @@ def home(request):
 	time_difference = now - user_p.last_scrape
 	time_difference_in_hours = time_difference / timedelta(minutes=60)
 	next_scrape = 24 - time_difference_in_hours
-	if time_difference_in_hours <= 24:
-		hide_me = True
-	else:
-		hide_me = False
-
+	hide_me = time_difference_in_hours <= 24
 	headlines = Headline.objects.all()
 
 	notes = Note.objects.filter(user=request.user)

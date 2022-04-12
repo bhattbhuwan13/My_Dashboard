@@ -19,7 +19,7 @@ class UserProfile(models.Model):
 	last_scrape = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
-		return "{}-{}".format(self.user, self.last_scrape)
+		return f"{self.user}-{self.last_scrape}"
 
 
 def post_user_signup_receiver(sender, instance, **kwargs):

@@ -23,20 +23,19 @@ class ChartData(APIView):
     permission_classes = []
     
     def get(self, request, format=None):
-        articles = dict()
-        for company in Company.objects.all():
-            if company.articles > 0:
-                articles[company.name] = company.articles
-    
-        articles = sorted(articles.items(), key=lambda x: x[1])
-        articles = dict(articles)
+    	articles = {
+    	    company.name: company.articles
+    	    for company in Company.objects.all() if company.articles > 0
+    	}
+    	articles = sorted(articles.items(), key=lambda x: x[1])
+    	articles = dict(articles)
 
-        data = {
-            "article_labels": articles.keys(),
-            "article_data": articles.values(),
-        }
-    
-        return Response(data)
+    	data = {
+    	    "article_labels": articles.keys(),
+    	    "article_data": articles.values(),
+    	}
+
+    	return Response(data)
 
 
 
