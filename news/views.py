@@ -31,9 +31,6 @@ def scrape(request):
 		title = i.find_all('a',{'class':'js_curation-click'})[1].text
 		image_source = i.find('img',{'class':'featured-image'})['data-src']
 
-		# stackoverflow solution
-
-		media_root = '/Users/matthew/Downloads/dashboard/media_root'
 		if not image_source.startswith(("data:image", "javascript")):
 			local_filename = image_source.split('/')[-1].split("?")[0]
 			r = session.get(image_source, stream=True, verify=False)
@@ -42,6 +39,9 @@ def scrape(request):
 					f.write(chunk)
 
 			current_image_absolute_path = os.path.abspath(local_filename)
+			# stackoverflow solution
+
+			media_root = '/Users/matthew/Downloads/dashboard/media_root'
 			shutil.move(current_image_absolute_path, media_root)
 
 
